@@ -1,0 +1,4 @@
+Lexical Analyzer
+class           class	 	1
+Identifier      A	 	1
+                $	 	-1
