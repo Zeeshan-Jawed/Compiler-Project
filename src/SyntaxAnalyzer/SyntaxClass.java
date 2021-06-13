@@ -5,6 +5,7 @@ import Lexical.Token;
 import java.util.List;
 
 public class SyntaxClass {
+
     static int index=0;
     private final List<Token> token;
 
@@ -183,22 +184,88 @@ public class SyntaxClass {
         return false;
     }
     boolean dec(){
-        return true;
+       if(token.get(index).CP.equals("Access Modifier")||token.get(index).CP.equals("Data Format")){
+           if (am()){
+               if (token.get(index).CP.equals("Data Format")){
+                   if (token.get(index).CP.equals("Identifier")){
+                       index++;
+                       if (init()){
+                           if (list()){
+                               return true;
+                           }
+                       }
+                   }
+               }
+
+           }
+       }
+       return false;
     }
     boolean list(){
-        return true;
+        if (token.get(index).CP.equals("Semicolon")){
+            index++;
+            return true;
+        }
+        else if (token.get(index).CP.equals("Comma")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (init()){
+                    if (list()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean list2(){
-        return true;
+        if (token.get(index).CP.equals("Semicolon")){
+            index++;
+            return true;
+        }
+        else if (token.get(index).CP.equals("Comma")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (list2()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     boolean init(){
-        return true;
+        if (token.get(index).CP.equals("Assign Operator")){
+            index++;
+            if (oe()){
+                return true;
+            }
+        }
+        else if(token.get(index).CP.equals("Semicolon")||token.get(index).CP.equals("Comma")){
+            return true;
+        }
+        return false;
     }
     boolean df(){
-        return true;
+        if (token.get(index).CP.equals("Data Format")){
+            index++;
+            return true;
+        }
+        return false;
     }
     boolean dec_2(){
-        return true;
+        if (df()){
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (init()){
+                    if (list()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean  body(){
         return true;
@@ -217,10 +284,39 @@ public class SyntaxClass {
         return true;
     }
     boolean inh(){
-        return true;
+        if (token.get(index).CP.equals("inherit")) {
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                return true;
+            }
+        }
+        else if(token.get(index).CP.equals("implement")||token.get(index).CP.equals("CloseCurly")){
+            return true;
+        }
+        return false;
     }
     boolean constdef(){
-        return true;
+        if (token.get(index).CP.equals("Identifier")){
+            index++;
+            if (token.get(index).CP.equals("Open Parentheses")){
+                index++;
+                if (params()){
+                    if (token.get(index).CP.equals("Close Parentheses")){
+                        index++;
+                        if (token.get(index).CP.equals("Open Curly")){
+                            index++;
+                            if (mst()){
+                                if (token.get(index).CP.equals("Close Curly")){
+                                    index++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean func_def(){
         return true;
@@ -286,5 +382,9 @@ public class SyntaxClass {
                 }
             }
         }
+        return false;
+    }
+    boolean oe(){
+        return true;
     }
 }
