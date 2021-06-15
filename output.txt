@@ -1,4 +1,12 @@
 Lexical Analyzer
 class           class	 	1
-Identifier      A	 	1
+Identifier      Main	 	1
+Open Curly      {	 	1
+Access Modifier pub	 	2
+Data Format     wn	 	2
+Identifier      a	 	2
+Assign Operator =	 	2
+WholeNumber     10	 	2
+Semicolon       ;	 	2
+Close Curly     }	 	3
                 $	 	-1

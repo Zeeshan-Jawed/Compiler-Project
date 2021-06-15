@@ -22,8 +22,8 @@ public class MainClass {
             Token t= new Token(" ","$",-1);
             tokenList.add(t);
             System.out.println("File Generated");
-            SyntaxClass syntaxClass=new SyntaxClass(tokenList);
-            syntaxClass.run();
+//            SyntaxClass syntaxClass=new SyntaxClass(tokenList);
+//            syntaxClass.run();
             System.setOut(out);
             System.out.println("Lexical Analyzer");
             for (int i = 0; i < tokenList.size(); i++) {

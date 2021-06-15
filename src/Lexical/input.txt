@@ -1,1 +1,3 @@
-class A
+class Main{
+pub wn a=10;
+}

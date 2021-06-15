@@ -107,11 +107,11 @@ public class LexerClass {
                          return new Token(":", ":",line);
                      }else if (current == '[') {
                          current = readNextChar();
-                         return new Token("OpenSquare", "[",line);
+                         return new Token("Open Square", "[",line);
                      }
                      else if (current == ']') {
                          current = readNextChar();
-                         return new Token("CloseSquare", "]",line);
+                         return new Token("Close Square", "]",line);
                      }
 
 
@@ -401,6 +401,4 @@ public class LexerClass {
         return false;
 
     }
-
-
 }

@@ -14,9 +14,11 @@ public class SyntaxClass {
     }
     public void run(){
         if (S()){
-            System.out.println("working");
+            if (token.get(index).CP.equals("$")){
+                System.out.println("No Syntax Error");
+            }
         }
-        else System.out.println("error");
+        else System.out.println("Syntax Error At Line No.: "+token.get(index).line);
     }
     boolean S(){
         if (token.get(index).CP.equals("interface")||token.get(index).CP.equals("Access Modifier")
@@ -86,8 +88,11 @@ public class SyntaxClass {
     }
     boolean cmod(){
         if (token.get(index).CP.equals("const")
-                ||token.get(index).CP.equals("conceptual")||token.get(index).CP.equals("class")){
+                ||token.get(index).CP.equals("conceptual")){
             index++;
+            return true;
+        }
+        else if(token.get(index).CP.equals("class")){
             return true;
         }
         return false;
@@ -139,6 +144,7 @@ public class SyntaxClass {
         else if (token.get(index).CP.equals("class")||token.get(index).CP.equals("Close Curly")){
             return true;
         }
+
         return false;
     }
     boolean attdef(){
@@ -179,6 +185,11 @@ public class SyntaxClass {
     boolean am() {
         if (token.get(index).CP.equals("Access Modifier")) {
             index++;
+            return true;
+        }
+        else if(token.get(index).CP.equals("const")
+                ||token.get(index).CP.equals("conceptual")||token.get(index).CP.equals("class")
+        ||token.get(index).CP.equals("Data Format")||token.get(index).CP.equals("void")){
             return true;
         }
         return false;
@@ -291,7 +302,7 @@ public class SyntaxClass {
                 return true;
             }
         }
-        else if(token.get(index).CP.equals("implement")||token.get(index).CP.equals("CloseCurly")){
+        else if(token.get(index).CP.equals("implement")||token.get(index).CP.equals("Open Curly")){
             return true;
         }
         return false;
@@ -319,25 +330,180 @@ public class SyntaxClass {
         return false;
     }
     boolean func_def(){
-        return true;
+        if (token.get(index).CP.equals("Access Modifier")
+        ||token.get(index).CP.equals("void")){
+            if (am()){
+                if (token.get(index).CP.equals("void")){
+                    index++;
+                    if (token.get(index).CP.equals("Identifier")){
+                        index++;
+                        if (token.get(index).CP.equals("Open Parentheses")){
+                            index++;
+                            if (params()){
+                                if (token.get(index).CP.equals("Close Parentheses")){
+                                    index++;
+                                    if (token.get(index).CP.equals("Open Curly")){
+                                        index++;
+                                        if (mst()){
+                                            if (token.get(index).CP.equals("Close Curly")){
+                                                index++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Data Format")){
+//            index++;
+            if (ar()){
+                if (token.get(index).CP.equals("Identifier")){
+                    index++;
+                    if (token.get(index).CP.equals("Open Parentheses")){
+                        index++;
+                        if (params()){
+                            if (token.get(index).CP.equals("Close Parentheses")){
+                                index++;
+                                if (token.get(index).CP.equals("Open Curly")){
+                                    index++;
+                                    if (mst()){
+                                        if (token.get(index).CP.equals("Close Curly")){
+                                            index++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+        else if ((token.get(index).CP.equals("Identifier"))){
+            index++;
+            if (ar()){
+                if (token.get(index).CP.equals("Identifier")){
+                    index++;
+                    if (token.get(index).CP.equals("Open Parentheses")){
+                        index++;
+                        if (params()){
+                            if (token.get(index).CP.equals("Close Parentheses")){
+                                index++;
+                                if (token.get(index).CP.equals("Open Curly")){
+                                    index++;
+                                    if (mst()){
+                                        if (token.get(index).CP.equals("Close Curly")){
+                                            index++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        return false;
     }
     boolean params(){
-        return true;
+        if (token.get(index).CP.equals("Data Format")){
+            if (ar()){
+                if (token.get(index).CP.equals("Identifier")){
+                    index++;
+                    if (params2()){
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Identifier")){
+            index++;
+            if (ar()){
+                if (token.get(index).CP.equals("Identifier")){
+                    index++;
+                    if (params2()){
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Close Parentheses")){
+            return true;
+        }
+        return false;
     }
     boolean params2(){
-        return true;
+        if (token.get(index).CP.equals("Comma")){
+            index++;
+            if (token.get(index).CP.equals("Data Format")){
+                if (token.get(index).CP.equals("Identifier")){
+                    index++;
+                    if (params2()){
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Close Parentheses")){
+            return true;
+        }
+        return false;
     }
     boolean ar(){
-        return true;
+        if (token.get(index).CP.equals("Open Square")){
+            index++;
+            return true;
+        }
+        else if(token.get(index).CP.equals("Identifier")){
+            return true;
+        }
+        return false;
     }
     boolean func_call(){
-        return true;
+        if(token.get(index).CP.equals("Identifier")){
+            index++;
+            if (Y()){
+                if (token.get(index).CP.equals("Open Parentheses")) {
+                    index++;
+                    if (params()) {
+                        if (token.get(index).CP.equals("Close Parentheses")) {
+                            index++;
+                            if (token.get(index).CP.equals("Semi Colon")){
+                                index ++;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean Y(){
         return true;
     }
     boolean interfac(){
-
+        if (token.get(index).CP.equals("interface")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (token.get(index).CP.equals("Open Curly")){
+                    index++;
+                    if (func_def()){
+                        if (token.get(index).CP.equals("Close Curly")){
+                            index++;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return true;
     }
 
@@ -369,7 +535,88 @@ public class SyntaxClass {
         return true;
     }
     boolean objdec (){
-        return true;
+        if(token.get(index).CP.equals("Identifier")){
+            index++;
+            if(token.get(index).CP.equals("Identifier")){
+                index++;
+                if(token.get(index).CP.equals("Assign Operator")){
+                    index++;
+                    if(token.get(index).CP.equals("new")){
+                        if(token.get(index).CP.equals("Identifier")){
+                            if (token.get(index).CP.equals("Open Parentheses")) {
+                                index++;
+                                if (params()) {
+                                    if (token.get(index).CP.equals("Close Parentheses")) {
+                                        index++;
+                                        if (token.get(index).CP.equals("Semi Colon")){
+                                            index ++;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean while_st(){
+        if (token.get(index).CP.equals("while")){
+            index++;
+            if (token.get(index).CP.equals("Open Parentheses")){
+                index++;
+                if (oe()){
+                    if (token.get(index).CP.equals("Close Parentheses")){
+                        index++;
+                        if (body()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean dowhile(){
+        if (token.get(index).CP.equals("do")){
+            index++;
+            if (token.get(index).CP.equals("Open Curly")){
+                index++;
+                if (mst()){
+                    if (token.get(index).CP.equals("Close Curly")){
+                        index++;
+                        if (token.get(index).CP.equals("while")){
+                            index++;
+                            if (token.get(index).CP.equals("Open Parentheses")){
+                                index++;
+                                if (oe()){
+                                    if (token.get(index).CP.equals("Close Parentheses")){
+                                        index++;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    return false;
+    }
+    boolean returns(){
+        if (token.get(index).CP.equals("return")){
+            index++;
+            if (returns1()){
+                return true;
+            }
+        }
+        return false;
+    }
+    boolean returns1(){
+        return false;
     }
     boolean _throw(){
         if (token.get(index).CP.equals("throw")){
@@ -377,6 +624,21 @@ public class SyntaxClass {
             if (token.get(index).CP.equals("new")){
                 if (token.get(index).CP.equals("Error")){
                     if (token.get(index).CP.equals("Text")){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean conceptual(){
+        if (token.get(index).CP.equals("conceptual")){
+            index++;
+            if (token.get(index).CP.equals("Open Curly")){
+                index++;
+                if (func_def()){
+                    if (token.get(index).CP.equals("Close Curly")){
+                        index++;
                         return true;
                     }
                 }
