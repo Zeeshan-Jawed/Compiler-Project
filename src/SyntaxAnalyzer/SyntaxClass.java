@@ -18,7 +18,7 @@ public class SyntaxClass {
                 System.out.println("No Syntax Error");
             }
         }
-        else System.out.println("Syntax Error At Line No.: "+token.get(index).line);
+        else System.out.println("Syntax Error At Line No.: "+token.get(index).line+" "+token.get(index).CP);
     }
     boolean S(){
         if (token.get(index).CP.equals("interface")||token.get(index).CP.equals("Access Modifier")
@@ -121,8 +121,6 @@ public class SyntaxClass {
         }
         return false;
     }
-
-
 
     boolean cbody(){
         if (token.get(index).CP.equals("Identifier")){
@@ -537,29 +535,228 @@ public class SyntaxClass {
         return false;
     }
     boolean for_st(){
-        return true;
+        if (token.get(index).CP.equals("for")){
+            index++;
+            if (token.get(index).CP.equals("Open Parentheses")){
+                index++;
+                if (C1()){
+                    if (C2()){
+                        if (token.get(index).CP.equals("Semi Colon")){
+                            index++;
+                            if (C3()){
+                                if (token.get(index).CP.equals("Close Parentheses")){
+                                    index++;
+                                    if (body()){
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     boolean C1(){
-        return true;
+        if (token.get(index).CP.equals("Data Format")){
+            if (dec_2()){
+                return true;
+            }
+        }
+        else if (token.get(index).CP.equals("Identifier")){
+            if (assin-st()){
+                return true;
+            }
+        }
+        else if (token.get(index).CP.equals("Semi Colon")){
+            index++;
+            return true;
+        }
+        return false;
     }
     boolean C2(){
-        return true;
+        if (){
+            if (oe()){
+                return true;
+            }
+        }
+        else if (token.get(index).CP.equals("Semi Colon")){
+            index++;
+            return true;
+        }
+        return false;
     }
     boolean C3(){
-        return true;
+        if (token.get(index).CP.equals("Identifier")){
+            index++;
+            if (X()){
+                if (C3_1()){
+                    return true;
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("IncDec")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                if (X()){
+                    return true;
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Close Parentheses")){
+            return true;
+        }
+        return false;
     }
     boolean C3_1(){
-        return true;
+        if (){
+            if (ASSIGN_OPR()) {
+                if (oe()){
+                    return true;
+
+                }
+            }
+        }
+        else if (INC_DEC_ST()){
+            index++;
+            return true;
+        }
+        return false;
+    }
+    boolean INC_DEC_ST(){
+        if (token.get(index).CP.equals("IncDec")){
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (X()){
+                    if (token.get(index).CP.equals("Semi Colon")){
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Identifier")){
+            index++;
+            if (X()){
+                if (token.get(index).CP.equals("IncDec")){
+                    index++;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     boolean ASSIGN_OPR(){
+        if (token.get(index).CP.equals("Assign Operator")||token.get(index).CP.equals("Com-Ass")){
+            index++;
+            return true;
+        }
         return true;
     }
     boolean X(){
         return true;
     }
     boolean arrdec(){
-        return true;
+        if (token.get(index).CP.equals("Data Format")){
+            if (arrst()){
+                if (token.get(index).CP.equals("Identifier")){
+                    if (token.get(index).CP.equals("Assign Operator")){
+                        if (arrst1()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
+    boolean arrst(){
+            if (token.get(index).CP.equals("Data Format")){
+                if (token.get(index).CP.equals("Open Square")){
+                    index++;
+                    if (token.get(index).CP.equals("Close Square")){
+                        index++;
+                        return true;
+                    }
+                }
+            }
+            else if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (token.get(index).CP.equals("Open Square")){
+                    index++;
+                    if (token.get(index).CP.equals("Close Square")){
+                        index++;
+                        return true;
+                    }
+                }
+            }
+            return false;
+    }
+    boolean arrst1(){
+        if (token.get(index).CP.equals("Open Curly")){
+            index++;
+            if (arrvar()){
+                if (token.get(index).CP.equals("Close Curly")){
+                    index++;
+                    if (token.get(index).CP.equals("Semi Colon")){
+                        index++;
+                        return true;
+                    }
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("new")){
+            if (token.get(index).CP.equals("Data Format")){
+                if (token.get(index).CP.equals("open Square")){
+                    index++;
+                    if (oe()){
+                        if (token.get(index).CP.equals("Close Square")){
+                            index++;
+                            if (token.get(index).CP.equals("Semi Colon")){
+                                index++;
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean arrvar(){
+//        if ()    first laganw
+        if (oe()){
+            return true;
+        }
+        else if (token.get(index).CP.equals("new")||token.get(index).CP.equals("Close Curly")){
+            if (arrvar2()){
+                return true;
+            }
+        }
+        return false;
+    }
+    boolean arrvar2(){
+        if (token.get(index).CP.equals("new")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (token.get(index).CP.equals("Open Parentheses")) {
+                    index++;
+                    if (params()) {
+                        if (token.get(index).CP.equals("Close Parentheses")) {
+                            index++;
+                        }
+                    }
+                }
+
+            }
+        }
+        else if (token.get(index).CP.equals("Close Curly")){
+            return true;
+        }
+        return false;
+    }
+
     boolean objdec (){
         if(token.get(index).CP.equals("Identifier")){
             index++;
@@ -642,6 +839,19 @@ public class SyntaxClass {
         return false;
     }
     boolean returns1(){
+        if (token.get(index).CP.equals("Semi Colon"))
+        {
+            index++;
+            return true;
+        }
+        else if(token.get(index).CP.equals("Identifier")
+                ||token.get(index).CP.equals("Text")||token.get(index).CP.equals("Float")
+                ||token.get(index).CP.equals("Letter")||token.get(index).CP.equals("Whole Number")
+                ||token.get(index).CP.equals("true")|token.get(index).CP.equals("false")){
+            if (oe()){
+                return true;
+            }
+        }
         return false;
     }
     boolean _throw(){
@@ -666,6 +876,74 @@ public class SyntaxClass {
                     if (token.get(index).CP.equals("Close Curly")){
                         index++;
                         return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean swtcase(){
+        if(token.get(index).CP.equals("switch")){
+            index++;
+            if (token.get(index).CP.equals("Open Parentheses")){
+                index++;
+                if (oe()){
+                    if (token.get(index).CP.equals("Close Parentheses")){
+                        index++;
+                        if (token.get(index).CP.equals("Open Curly")){
+                            index++;
+                            if (swbody()){
+                                if (defaultt()){
+                                    if (token.get(index).CP.equals("Close Curly")){
+                                        index++;
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean swbody(){
+        if (token.get(index).CP.equals("case")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+//                colon daalna hai lexical mai
+                if (token.get(index).CP.equals("Colon")){
+                    index++;
+                    if (body()){
+                        if (token.get(index).CP.equals("BRE_CON")){
+                            index++;
+                            if (token.get(index).CP.equals("Semi Colon")){
+                                index++;
+                                if (swbody()){
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean defaultt(){
+        if (token.get(index).CP.equals("default")){
+            index++;
+            if (token.get(index).CP.equals("Colon")){
+                index++;
+                if (token.get(index).CP.equals("Open Curly")){
+                    index++;
+                    if (oe()){
+                        if (token.get(index).CP.equals("Close Curly")){
+                            index++;
+                            return true;
+                        }
                     }
                 }
             }
