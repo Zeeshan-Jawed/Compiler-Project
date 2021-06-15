@@ -9,4 +9,4 @@ Assign Operator =	 	2
 WholeNumber     10	 	2
 Semicolon       ;	 	2
 Close Curly     }	 	3
-                $	 	-1
+$                	 	-1

@@ -19,7 +19,7 @@ public class MainClass {
             List<Token> tokenList = lexerClass.generateTokens();
 
             PrintStream out = new PrintStream(new FileOutputStream("output.txt"));
-            Token t= new Token(" ","$",-1);
+            Token t= new Token("$"," ",-1);
             tokenList.add(t);
             System.out.println("File Generated");
             SyntaxClass syntaxClass=new SyntaxClass(tokenList);

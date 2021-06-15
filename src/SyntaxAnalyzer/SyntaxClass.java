@@ -66,13 +66,14 @@ public class SyntaxClass {
         return false;
     }
     boolean defs(){
-        if (token.get(index).CP.equals("class")){
-            if (class_def()){
-                if (defs()){
+        if (token.get(index).CP.equals("class")) {
+            if (class_def()) {
+                if (defs()) {
                     return true;
                 }
             }
-            else if(token.get(index).CP.equals(("interface"))){
+        }
+        if(token.get(index).CP.equals(("interface"))){
                 if(interfac()){
                     if (defs()){
                         return true;
@@ -80,10 +81,10 @@ public class SyntaxClass {
                 }
 
             }
-            else if(token.get(index).CP.equals(("$"))){
+        if(token.get(index).CP.equals(("$"))){
                 return true;
             }
-        }
+
         return false;
     }
     boolean cmod(){
@@ -93,6 +94,7 @@ public class SyntaxClass {
             return true;
         }
         else if(token.get(index).CP.equals("class")){
+
             return true;
         }
         return false;
@@ -123,7 +125,8 @@ public class SyntaxClass {
     }
 
     boolean cbody(){
-        if (token.get(index).CP.equals("Identifier")){
+        if (token.get(index).CP.equals("Identifier")
+                || token.get(index).CP.equals("Data Format")||token.get(index).CP.equals("Access Modifier")){
             if (constdef()){
                 if (attdef()){
                     if (cbody()){
@@ -146,8 +149,8 @@ public class SyntaxClass {
         return false;
     }
     boolean attdef(){
-        if (token.get(index).CP.equals("Access Modifier")){
-            if (vardec()){
+        if (token.get(index).CP.equals("Access Modifier")||token.get(index).CP.equals("Data Format")){
+            if (dec()){
                 return true;
             }
         }
@@ -167,17 +170,17 @@ public class SyntaxClass {
     boolean vardec(){
         if (token.get(index).CP.equals("Access Modifier")||token.get(index).CP.equals("Data Format")
                 ){
-            if (token.get(index).CP.equals("Access Modifier")){
+
                 if (token.get(index).CP.equals("Data Format")){
+                    index++;
                     if (token.get(index).CP.equals("Identifier")){
                         index++;
-                        if (list2()){
+                        if (list()){
                             return true;
                         }
                     }
                 }
             }
-        }
         return false;
     }
     boolean am() {
@@ -196,6 +199,7 @@ public class SyntaxClass {
        if(token.get(index).CP.equals("Access Modifier")||token.get(index).CP.equals("Data Format")){
            if (am()){
                if (token.get(index).CP.equals("Data Format")){
+                   index++;
                    if (token.get(index).CP.equals("Identifier")){
                        index++;
                        if (init()){
@@ -248,6 +252,7 @@ public class SyntaxClass {
         if (token.get(index).CP.equals("Assign Operator")){
             index++;
             if (oe()){
+//                index++;
                 return true;
             }
         }
@@ -324,6 +329,10 @@ public class SyntaxClass {
                     }
                 }
             }
+        }
+        else if (token.get(index).CP.equals("Data Format")||token.get(index).CP.equals("Access Modifier")){
+            index++;
+            return true;
         }
         return false;
     }
@@ -534,96 +543,96 @@ public class SyntaxClass {
         }
         return false;
     }
-    boolean for_st(){
-        if (token.get(index).CP.equals("for")){
-            index++;
-            if (token.get(index).CP.equals("Open Parentheses")){
-                index++;
-                if (C1()){
-                    if (C2()){
-                        if (token.get(index).CP.equals("Semi Colon")){
-                            index++;
-                            if (C3()){
-                                if (token.get(index).CP.equals("Close Parentheses")){
-                                    index++;
-                                    if (body()){
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    boolean C1(){
-        if (token.get(index).CP.equals("Data Format")){
-            if (dec_2()){
-                return true;
-            }
-        }
-        else if (token.get(index).CP.equals("Identifier")){
-            if (assin-st()){
-                return true;
-            }
-        }
-        else if (token.get(index).CP.equals("Semi Colon")){
-            index++;
-            return true;
-        }
-        return false;
-    }
-    boolean C2(){
-        if (){
-            if (oe()){
-                return true;
-            }
-        }
-        else if (token.get(index).CP.equals("Semi Colon")){
-            index++;
-            return true;
-        }
-        return false;
-    }
-    boolean C3(){
-        if (token.get(index).CP.equals("Identifier")){
-            index++;
-            if (X()){
-                if (C3_1()){
-                    return true;
-                }
-            }
-        }
-        else if (token.get(index).CP.equals("IncDec")){
-            index++;
-            if (token.get(index).CP.equals("Identifier")){
-                if (X()){
-                    return true;
-                }
-            }
-        }
-        else if (token.get(index).CP.equals("Close Parentheses")){
-            return true;
-        }
-        return false;
-    }
-    boolean C3_1(){
-        if (){
-            if (ASSIGN_OPR()) {
-                if (oe()){
-                    return true;
-
-                }
-            }
-        }
-        else if (INC_DEC_ST()){
-            index++;
-            return true;
-        }
-        return false;
-    }
+//    boolean for_st(){
+//        if (token.get(index).CP.equals("for")){
+//            index++;
+//            if (token.get(index).CP.equals("Open Parentheses")){
+//                index++;
+//                if (C1()){
+//                    if (C2()){
+//                        if (token.get(index).CP.equals("Semi Colon")){
+//                            index++;
+//                            if (C3()){
+//                                if (token.get(index).CP.equals("Close Parentheses")){
+//                                    index++;
+//                                    if (body()){
+//                                        return true;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
+//    boolean C1(){
+//        if (token.get(index).CP.equals("Data Format")){
+//            if (dec_2()){
+//                return true;
+//            }
+//        }
+//        else if (token.get(index).CP.equals("Identifier")){
+//            if (assin-st()){
+//                return true;
+//            }
+//        }
+//        else if (token.get(index).CP.equals("Semi Colon")){
+//            index++;
+//            return true;
+//        }
+//        return false;
+//    }
+//    boolean C2(){
+//        if (){
+//            if (oe()){
+//                return true;
+//            }
+//        }
+//        else if (token.get(index).CP.equals("Semi Colon")){
+//            index++;
+//            return true;
+//        }
+//        return false;
+//    }
+//    boolean C3(){
+//        if (token.get(index).CP.equals("Identifier")){
+//            index++;
+//            if (X()){
+//                if (C3_1()){
+//                    return true;
+//                }
+//            }
+//        }
+//        else if (token.get(index).CP.equals("IncDec")){
+//            index++;
+//            if (token.get(index).CP.equals("Identifier")){
+//                if (X()){
+//                    return true;
+//                }
+//            }
+//        }
+//        else if (token.get(index).CP.equals("Close Parentheses")){
+//            return true;
+//        }
+//        return false;
+//    }
+//    boolean C3_1(){
+//        if (){
+//            if (ASSIGN_OPR()) {
+//                if (oe()){
+//                    return true;
+//
+//                }
+//            }
+//        }
+//        else if (INC_DEC_ST()){
+//            index++;
+//            return true;
+//        }
+//        return false;
+//    }
     boolean INC_DEC_ST(){
         if (token.get(index).CP.equals("IncDec")){
             if (token.get(index).CP.equals("Identifier")){
