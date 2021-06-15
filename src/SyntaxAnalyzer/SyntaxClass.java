@@ -508,7 +508,33 @@ public class SyntaxClass {
     }
 
     boolean implement(){
-        return true;
+        if (token.get(index).CP.equals("implement")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                if (implement1()){
+
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Open Curly")){
+            return true;
+        }
+        return false;
+    }
+    boolean implement1(){
+        if (token.get(index).CP.equals("Comma")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                index++;
+                if (implement()){
+                    return true;
+                }
+            }
+        }
+        else if (token.get(index).CP.equals("Open Curly")){
+            return true;
+        }
+        return false;
     }
     boolean for_st(){
         return true;
