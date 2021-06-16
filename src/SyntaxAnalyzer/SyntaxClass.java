@@ -1,9 +1,6 @@
 package SyntaxAnalyzer;
-
 import Lexical.Token;
-
 import java.util.List;
-
 public class SyntaxClass {
 
     static int index=0;
@@ -922,7 +919,6 @@ public class SyntaxClass {
             index++;
             if (token.get(index).CP.equals("Identifier")){
                 index++;
-//                colon daalna hai lexical mai
                 if (token.get(index).CP.equals("Colon")){
                     index++;
                     if (body()){

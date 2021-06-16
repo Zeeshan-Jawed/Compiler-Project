@@ -50,7 +50,7 @@ public class LexerClass {
 
 
         while (true) {
-           int a=2;
+
             if (current == (char) (-1)) {
                 try {
                     reader.close();
@@ -104,7 +104,7 @@ public class LexerClass {
                     }
                      else if (current == ':') {
                          current = readNextChar();
-                         return new Token(":", ":",line);
+                         return new Token("Colon", ":",line);
                      }else if (current == '[') {
                          current = readNextChar();
                          return new Token("Open Square", "[",line);
@@ -239,6 +239,7 @@ public class LexerClass {
 
                 }
                 case 2: {
+
                     if(isfloat(String.valueOf(current))){
                         String num = String.valueOf(current);
                         while (current!='.'){
@@ -260,6 +261,31 @@ public class LexerClass {
                                     current = readNextChar();
                                     if (isNumber(current)){
                                         num += String.valueOf(current);
+
+                                    }
+                                    else if (String.valueOf(current).equals("e")||String.valueOf(current).equals("E")){
+                                        num += String.valueOf(current);
+                                        current = readNextChar();
+                                        if (String.valueOf(current).equals("+")||String.valueOf(current).equals("-")){
+                                            num += String.valueOf(current);
+                                            current = readNextChar();
+                                            num += String.valueOf(current);
+                                            if (isfloat(num)){
+                                                for (; ;){
+                                                    String temp=num;
+                                                    current = readNextChar();
+                                                    temp +=String.valueOf(current);
+                                                    if (isfloat(temp)){
+                                                        num += String.valueOf(current);
+                                                    }
+                                                    else if (!isfloat(temp)){
+
+                                                        return new Token("Float",num,line);
+                                                    }
+
+                                                }
+                                            }
+                                        }
 
                                     }
                                    else return new Token("Float",num,line);
@@ -383,7 +409,7 @@ public class LexerClass {
         }
     }
     boolean isfloat(String w){
-        Pattern pattern = Pattern.compile("^[-+]?[0-9]*\\.?[0-9]?$");
+        Pattern pattern = Pattern.compile("^[-+]?[0-9]*\\.?[0-9]?([eE]?[+-]?[0-9]+)?$");
         Matcher matcher = pattern.matcher(w);
         boolean matchFound = matcher.find();
         if(matchFound) {
