@@ -219,7 +219,7 @@ public class LexerClass {
                         if (current == '=') {
                             current = readNextChar();
                             return new Token("Co ", "!=",line);
-                        } else return new Token("Not Defined", "!",line);
+                        } else return new Token("Not", "!",line);
                     }else if(current == '&'){
                         current = readNextChar();
                         if(current == '&'){

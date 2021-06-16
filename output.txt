@@ -1,17 +1,16 @@
 Lexical Analyzer
-class           class	 	1
-Identifier      Main	 	1
-Open Curly      {	 	1
-Access Modifier pub	 	2
-Data Format     wn	 	2
-Identifier      a	 	2
-Assign Operator =	 	2
-Float           1.2	 	2
-Float           .3	 	2
-Comma           ,	 	2
-Float           4.5e-63	 	2
-Comma           ,	 	2
-Float           7.8e+9	 	2
-Semicolon       ;	 	2
-Close Curly     }	 	3
+interface       interface	 	1
+Identifier      a	 	1
+Open Curly      {	 	2
+Close Curly     }	 	2
+class           class	 	4
+Identifier      Main	 	4
+inherit         inherit	 	4
+Identifier      c	 	4
+Open Curly      {	 	4
+Close Curly     }	 	6
+class           class	 	7
+Identifier      Main	 	7
+Open Curly      {	 	7
+Close Curly     }	 	9
 $                	 	-1

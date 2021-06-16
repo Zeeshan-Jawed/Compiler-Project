@@ -1,3 +1,9 @@
+interface a
+{}
+
+class Main inherit c{
+
+}
 class Main{
-pub wn a=1.2.3,4.5e-63,7.8e+9;
+
 }
