@@ -1,9 +1,20 @@
-interface a
-{}
 
-class Main inherit c{
 
+ class A {
+    wn a=true;
+   void ab(){
+        while(true){
+        print("A");
+        }
+      A a=new A();
+        I.A++;
+   for(wn i=0;i<j;++i){
+   print("A");
+   }
 }
-class Main{
-
 }
+interface A{
+  wn a=10;
+  conceptual void a();
+ }
+

@@ -1,5 +1,7 @@
 package Lexical;
 
+import SyntaxAnalyzer.SyntaxClass;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,13 +19,13 @@ public class LexerClass {
             "import", "for", "while", "if", "else", "do",
             "void", "throw", "switch", "case", "class",
             "static", "conceptual", "interface", "package", "new","virtual","override",
-             "inherit", "implement", "const","return","ArrayList"};
+             "inherit", "implement", "const","return","ArrayList","default","Error","print"};
     public static final String DATA_FORMAT[] = new String[]{"wn","float","letter","text","bool","email"};
     public static final String ACCESS_MODIFIER[] = new String[]{"pub","pro","pvt"};
+    public static final String Escape_Sequences[]= new String[]{"\\n","\\t","\\f"};
     public static final String BRE_CON[] = new String[]{"break","continue"};
-
+    public static final String Bool[] = new String[]{"true","false"};
     public static int line=1;
-
     public LexerClass(File file) {
 
         try {
@@ -33,8 +35,6 @@ public class LexerClass {
         }
         current = readNextChar();
     }
-
-
     public List<Token> generateTokens() {
         Token token = readNextToken();
         while (token != null) {
@@ -43,14 +43,10 @@ public class LexerClass {
         }
         return tokenList;
     }
-
     Token readNextToken() {
 
         int state = 1;
-
-
         while (true) {
-
             if (current == (char) (-1)) {
                 try {
                     reader.close();
@@ -85,7 +81,7 @@ public class LexerClass {
                      }
                     else if (current == ';') {
                         current = readNextChar();
-                        return new Token("Semicolon", ";",line);
+                        return new Token("Semi Colon", ";",line);
                     } else if (current == '{') {
                         current = readNextChar();
                         return new Token("Open Curly", "{",line);
@@ -250,7 +246,7 @@ public class LexerClass {
                                 }
                             }
                             else{
-                                return new Token("WholeNumber", num,line);
+                                return new Token("Whole Number", num,line);
                             }
                         }
                         if (current=='.'){
@@ -319,10 +315,10 @@ public class LexerClass {
                     }
                     if (current=='"'){
                         String word = String.valueOf(current);
+
                         for (; ;){
                             current = readNextChar();
                             word += String.valueOf(current);
-
                             if (current=='"'){
                                 current=readNextChar();
                                 return new Token("Text", word,line);
@@ -343,6 +339,7 @@ public class LexerClass {
                                 List data_format=Arrays.asList(DATA_FORMAT);
                                 List access_modifier=Arrays.asList(ACCESS_MODIFIER);
                                 List bre_con=Arrays.asList(BRE_CON);
+                                List bool=Arrays.asList(Bool);
 
                                 if (identifier(word)){
                                     if (key_words.contains(word)){
@@ -353,6 +350,8 @@ public class LexerClass {
                                         return new Token("Access Modifier", word,line);}
                                     else if ( bre_con.contains(word)){
                                         return new Token("Bre_Con", word,line);}
+                                    else if (bool.contains(word)){
+                                        return new Token("Boolean", word,line);}
 
                                     return new Token("Identifier", word,line);
                                 }
@@ -423,7 +422,6 @@ public class LexerClass {
             return true;
         if (c >= 'A' && c <= 'Z')
             return true;
-
         return false;
 
     }
