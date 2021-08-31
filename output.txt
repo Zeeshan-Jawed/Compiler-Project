@@ -1,77 +1,26 @@
 Lexical Analyzer
-class           class	 	3
-Identifier      A	 	3
-Open Curly      {	 	3
-Data Format     wn	 	4
-Identifier      a	 	4
-Assign Operator =	 	4
-Boolean         true	 	4
-Semi Colon      ;	 	4
-void            void	 	5
-Identifier      ab	 	5
-Open Parentheses(	 	5
-Close Parentheses)	 	5
-Open Curly      {	 	5
-while           while	 	6
-Open Parentheses(	 	6
-Boolean         true	 	6
-Close Parentheses)	 	6
-Open Curly      {	 	6
-print           print	 	7
-Open Parentheses(	 	7
-Text            "A"	 	7
-Close Parentheses)	 	7
-Semi Colon      ;	 	7
-Close Curly     }	 	8
-Identifier      A	 	9
-Identifier      a	 	9
-Assign Operator =	 	9
-new             new	 	9
-Identifier      A	 	9
-Open Parentheses(	 	9
-Close Parentheses)	 	9
-Semi Colon      ;	 	9
-Identifier      I	 	10
-dot             .	 	10
-Identifier      A	 	10
-IncDec          ++	 	10
-Semi Colon      ;	 	10
-for             for	 	11
-Open Parentheses(	 	11
-Data Format     wn	 	11
-Identifier      i	 	11
-Assign Operator =	 	11
-Whole Number    0	 	11
-Semi Colon      ;	 	11
-Identifier      i	 	11
-<               <	 	11
-Identifier      j	 	11
-Semi Colon      ;	 	11
-IncDec          ++	 	11
-Identifier      i	 	11
-Close Parentheses)	 	11
-Open Curly      {	 	11
-print           print	 	12
-Open Parentheses(	 	12
-Text            "A"	 	12
-Close Parentheses)	 	12
-Semi Colon      ;	 	12
-Close Curly     }	 	13
-Close Curly     }	 	14
-Close Curly     }	 	15
-interface       interface	 	16
-Identifier      A	 	16
-Open Curly      {	 	16
-Data Format     wn	 	17
-Identifier      a	 	17
-Assign Operator =	 	17
-Whole Number    10	 	17
-Semi Colon      ;	 	17
-conceptual      conceptual	 	18
-void            void	 	18
-Identifier      a	 	18
-Open Parentheses(	 	18
-Close Parentheses)	 	18
-Semi Colon      ;	 	18
-Close Curly     }	 	19
+interface       interface	 	1
+Identifier      B	 	1
+Open Curly      {	 	1
+Data Format     wn	 	2
+Identifier      b	 	2
+Semi Colon      ;	 	2
+Close Curly     }	 	3
+class           class	 	4
+Identifier      V	 	4
+Open Curly      {	 	4
+Close Curly     }	 	6
+class           class	 	7
+Identifier      A	 	7
+implement       implement	 	7
+Identifier      B	 	7
+Comma           ,	 	7
+Identifier      B	 	7
+Open Curly      {	 	7
+Data Format     wn	 	8
+Identifier      a	 	8
+Assign Operator =	 	8
+Whole Number    10	 	8
+Semi Colon      ;	 	8
+Close Curly     }	 	9
 $                	 	-1

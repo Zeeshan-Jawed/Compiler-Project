@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class SemanticClass {
-    public String Cat;
-    public String Am;
-    public String Tm;
-    static int index=1;
+    public  String Cat;
+    public  String Am="pvt";
+    public  String Tm;
+    static int index=0;
     Stack <Integer> scope=new Stack<>();
     public List<SymbolTable> mainTable =new ArrayList<SymbolTable>();
-    List<FunctionTable> functionTable =new ArrayList<FunctionTable>();
+   public List<FunctionTable> functionTable =new ArrayList<FunctionTable>();
 
     public ArrayList<BodyTable>create_DT(){
         ArrayList<BodyTable> bodyTable =new ArrayList<BodyTable>();
@@ -26,10 +26,16 @@ public class SemanticClass {
         obj.access_modifier=access_modifier;
         obj.category=category;
         obj.parent=parent;
-//        obj.link=new ArrayList<BodyTable>();
         obj.link=link;
-        mainTable.add(obj);
-        return true;
+        if (!mainTable.contains(obj)){
+            mainTable.add(obj);
+            return true;
+        }
+        else {
+            System.out.println("Redeclaration "+obj.type+":"+obj.name);
+            return false;
+        }
+
     }
 
     public boolean insert_FT(String name,String type){
@@ -37,6 +43,7 @@ public class SemanticClass {
         functionTable.name=name;
         functionTable.type=type;
         functionTable.scope=index;
+        this.functionTable.add(functionTable);
         return true;
     }
    public boolean insert_DT(String name,String type,String typemodifier,String accessmodifier,ArrayList<BodyTable> link){
@@ -46,18 +53,17 @@ public class SemanticClass {
         bodyTable.type_modifier=typemodifier;
         bodyTable.access_modifier=accessmodifier;
         link.add(bodyTable);
-
         return true;
     }
     public String lookup_MT(String name){
         for (SymbolTable var : mainTable)
         {
             if (var.name.equals(name)){
+                Am=var.access_modifier;
                 Cat=var.category;
-                System.out.println(var.type);
                 return var.type;
-            }
 
+            }
         }
         return "null";
     }
@@ -82,6 +88,7 @@ public class SemanticClass {
    public void createScope(){
 
        scope.add(index);
+//       System.out.println(scope);
        index++;
     }
    public void destroyScope(){

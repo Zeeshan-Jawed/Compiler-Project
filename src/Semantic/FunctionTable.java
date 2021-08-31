@@ -5,5 +5,12 @@ public class FunctionTable {
     public String type;
     public int scope;
 
-
+    @Override
+    public String toString() {
+        return "FunctionTable{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", scope=" + scope +
+                '}';
+    }
 }

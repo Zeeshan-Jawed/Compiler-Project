@@ -1,20 +1,9 @@
-
-
- class A {
-    wn a=true;
-   void ab(){
-        while(true){
-        print("A");
-        }
-      A a=new A();
-        I.A++;
-   for(wn i=0;i<j;++i){
-   print("A");
-   }
+interface B{
+wn b;
 }
-}
-interface A{
-  wn a=10;
-  conceptual void a();
- }
+class V{
 
+}
+class A implement B,B{
+wn a=10;
+}
