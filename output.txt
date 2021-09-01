@@ -1,26 +1,43 @@
 Lexical Analyzer
-interface       interface	 	1
-Identifier      B	 	1
-Open Curly      {	 	1
-Data Format     wn	 	2
-Identifier      b	 	2
-Semi Colon      ;	 	2
-Close Curly     }	 	3
-class           class	 	4
-Identifier      V	 	4
+class           class	 	2
+Identifier      V	 	2
+Open Curly      {	 	2
+Data Format     wn	 	3
+Identifier      a	 	3
+Semi Colon      ;	 	3
+Access Modifier pub	 	4
+static          static	 	4
+void            void	 	4
+Identifier      main	 	4
+Open Parentheses(	 	4
+Close Parentheses)	 	4
 Open Curly      {	 	4
-Close Curly     }	 	6
-class           class	 	7
-Identifier      A	 	7
-implement       implement	 	7
-Identifier      B	 	7
-Comma           ,	 	7
-Identifier      B	 	7
-Open Curly      {	 	7
+Data Format     wn	 	5
+Identifier      a	 	5
+Assign Operator =	 	5
+Whole Number    10	 	5
+MDM             /	 	5
+Whole Number    5	 	5
+Semi Colon      ;	 	5
+Data Format     wn	 	6
+Identifier      b	 	6
+Assign Operator =	 	6
+Whole Number    14	 	6
+Semi Colon      ;	 	6
+Data Format     wn	 	7
+Identifier      x	 	7
+Assign Operator =	 	7
+Whole Number    3	 	7
+Semi Colon      ;	 	7
 Data Format     wn	 	8
-Identifier      a	 	8
+Identifier      m	 	8
 Assign Operator =	 	8
-Whole Number    10	 	8
+Identifier      a	 	8
+PM              +	 	8
+Identifier      b	 	8
+MDM             /	 	8
+Identifier      x	 	8
 Semi Colon      ;	 	8
-Close Curly     }	 	9
+Close Curly     }	 	10
+Close Curly     }	 	11
 $                	 	-1

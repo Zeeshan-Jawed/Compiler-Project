@@ -20,6 +20,13 @@ public class SyntaxClass   {
     String Fname;
     String Ftype;
 
+    String opr;
+    String T1;
+    String T3;
+    String T2;
+    String T4;
+    String T5;
+
     static int index=0;
     private final List<Token> token;
     SemanticClass semanticClass =new SemanticClass();
@@ -28,18 +35,18 @@ public class SyntaxClass   {
         this.token=token;
     }
     public void Dtempty(){
-        this.cName="";
-        this.cTm="";
-        this.cType="";
+        this.cName=null;
+        this.cTm=null;
+        this.cType=null;
         this.Am="pvt";
-        this.Pl="";
+        this.Pl=null;
     }
     public void empty(){
-        this.T="";
-        this.N="";
+        this.T=null;
+        this.N=null;
         this.Am="pvt";
-        this.Cat="";
-        this.Prnt="";
+        this.Cat=null;
+        this.Prnt=null;
     }
     public void run(){
 
@@ -258,7 +265,7 @@ public class SyntaxClass   {
             }
         }
         else if (token.get(index).CP.equals("Data Format")){
-            cType=token.get(index).VP;
+           cType=token.get(index).VP;
                 index++;
                 if (Orarr()){
                     return true;
@@ -272,7 +279,12 @@ public class SyntaxClass   {
     boolean Orarr(){
         if (token.get(index).CP.equals("Identifier")){
             cName=token.get(index).VP;
+            if ("(".equals(token.get(index + 1).VP)) {
+            } else {
+                semanticClass.insert_DT(cName, cType, cTm, Am, refDt);
+            }
             index++;
+
             if (orFn()){
                 if (cbody()){
                     return true;
@@ -329,13 +341,13 @@ public class SyntaxClass   {
             index++;
             if (PL()){
                 if (token.get(index).CP.equals("Close Parentheses")){
+                    semanticClass.insert_DT(cName,Pl+"->"+cType,cTm,Am,refDt);
+                    Dtempty();
                     index++;
                     if (token.get(index).CP.equals("Open Curly")){
                         index++;
                         if (MST()){
                             if (token.get(index).CP.equals("Close Curly")){
-                                semanticClass.insert_DT(cName,Pl+"=>"+cType,cTm,Am,refDt);
-                                Dtempty();
                                 semanticClass.destroyScope();
                                 index++;
                                 return true;
@@ -349,28 +361,28 @@ public class SyntaxClass   {
     }
     boolean orFn(){
         if (token.get(index).CP.equals("Open Parentheses")){
-            semanticClass.createScope();
             if (fn()){
                 return true;
             }
         }
         else if (token.get(index).CP.equals("Assign Operator")){
             if (init()){
-                if (token.get(index).CP.equals("Semi Colon")) {
-                    semanticClass.insert_DT(cName,cType,cTm,Am,refDt);
-                    Dtempty();
-                    index++;
+                if (list()) {
+
                     return true;
                 }
             }
         }
         else if (token.get(index).CP.equals("Semi Colon")) {
+
             index++;
             return true;
         }
         else if (token.get(index).CP.equals("Comma")){
             index++;
             if (token.get(index).CP.equals("Identifier")){
+                cName=token.get(index).VP;
+                semanticClass.insert_DT(cName,cType,cTm,Am,refDt);
                 index++;
                 if (init()){
                     if (list()){
@@ -383,6 +395,7 @@ public class SyntaxClass   {
     }
     boolean init(){
         if (token.get(index).CP.equals("Assign Operator")) {
+            opr="=";
             index++;
             if(oArrinit()){
                 return true;
@@ -400,6 +413,11 @@ public class SyntaxClass   {
                 ||token.get(index).CP.equals("Whole Number")||token.get(index).CP.equals("Boolean")
                 ||token.get(index).CP.equals("IncDec")||token.get(index).CP.equals("Not")){
             if (OE()){
+                if (!T1.equals("null")&&!T2.equals("null")&&!opr.equals("null")){
+                    T5=semanticClass.compatibility(T1,T2,opr);
+                    System.out.println("T5 = "+ T5);
+
+                }
                 return true;
             }
         }
@@ -442,16 +460,39 @@ public class SyntaxClass   {
     }
     boolean list(){
         if (token.get(index).CP.equals("Semi Colon")){
-            semanticClass.insert_FT(Fname,Ftype);
+            Dtempty();
             index++;
             return true;
         }
         else if (token.get(index).CP.equals("Comma")){
             index++;
             if (token.get(index).CP.equals("Identifier")){
+                cName=token.get(index).VP;
+                semanticClass.insert_DT(cName,cType,cTm,Am,refDt);
                 index++;
                 if (init()){
                     if (list()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    boolean fnlist(){
+        if (token.get(index).CP.equals("Semi Colon")){
+            Dtempty();
+            index++;
+            return true;
+        }
+        else if (token.get(index).CP.equals("Comma")){
+            index++;
+            if (token.get(index).CP.equals("Identifier")){
+                Fname=token.get(index).VP;
+                semanticClass.insert_FT(Fname,Ftype);
+                index++;
+                if (init()){
+                    if (fnlist()){
                         return true;
                     }
                 }
@@ -531,9 +572,12 @@ public class SyntaxClass   {
                     if (arr()){
                         if (token.get(index).CP.equals("Identifier")){
                             Fname=token.get(index).VP;
+                            semanticClass.insert_FT(Fname,Ftype);
+                            String N=token.get(index).VP;
+                            T1= semanticClass.lookup_FT(N);
                             index++;
                             if (init()){
-                                if (list()){
+                                if (fnlist()){
                                     return true;
                                 }
                             }
@@ -575,9 +619,11 @@ public class SyntaxClass   {
 
         }
         else if (token.get(index).CP.equals("Open Curly")){
+            semanticClass.createScope();
             index++;
             if (MST()){
                 if (token.get(index).CP.equals("Close Curly")){
+                    semanticClass.destroyScope();
                     index++;
                     return true;
                 }
@@ -645,6 +691,12 @@ public class SyntaxClass   {
 
             }
             else if (token.get(index).CP.equals("Identifier")){
+                String N=token.get(index).VP;
+               T1= semanticClass.lookup_FT(N);
+
+               if (T1.equals("null")){
+                   System.out.println("'"+N +"' Undeclared");
+               }
                 index++;
                 if (other()){
                     return true;
@@ -711,8 +763,15 @@ boolean other() {
 }
 boolean other2(){
     if (token.get(index).CP.equals("Assign Operator")) {
+         opr="=";
         index++;
         if(OE()){
+            if (!T1.equals("null")&&!T2.equals("null")&&!opr.equals("null")){
+                T5=semanticClass.compatibility(T1,T2,opr);
+                System.out.println("T5 = "+ T5);
+
+            }
+
             return true;
         }
     }
@@ -1322,10 +1381,13 @@ boolean MST(){
     }
     boolean PL(){
         if (token.get(index).CP.equals("Data Format")){
+            String ftype=token.get(index).VP;
             Pl=token.get(index).VP;
             index++;
             if (arr()){
                 if (token.get(index).CP.equals("Identifier")){
+                    String fname=token.get(index).VP;
+                    semanticClass.insert_FT(fname,ftype);
                     index++;
                     if (PL2()){
                         return true;
@@ -1353,9 +1415,12 @@ boolean MST(){
         if (token.get(index).CP.equals("Comma")){
             index++;
             if (token.get(index).CP.equals("Data Format")){
+                String ftype=token.get(index).VP;
                 Pl+=","+token.get(index).VP;
                 index++;
                 if (token.get(index).CP.equals("Identifier")){
+                    String fname=token.get(index).VP;
+                    semanticClass.insert_FT(fname,ftype);
                     index++;
                     if (PL2()){
                         return true;
@@ -1448,18 +1513,9 @@ boolean MST(){
                 }
             }
         }
-        else if (token.get(index).CP.equals("Access Modifier")||token.get(index).CP.equals("Data Format")
-                ||token.get(index).CP.equals("do")||token.get(index).CP.equals("while")
-                ||token.get(index).CP.equals("switch")||token.get(index).CP.equals("Close Square")
-                ||token.get(index).CP.equals("Close Curly") ||token.get(index).CP.equals("Close Parentheses")
-                ||token.get(index).CP.equals("Semi Colon")||token.get(index).CP.equals("Comma")
-                ||token.get(index).CP.equals("IncDec")||token.get(index).CP.equals("PM")
-                ||token.get(index).CP.equals("MDM")||token.get(index).CP.equals("Or")
-                ||token.get(index).CP.equals("And")||token.get(index).CP.equals("Co")
-                ||token.get(index).CP.equals("Identifier")||token.get(index).CP.equals("if")
-                ||token.get(index).CP.equals("else")||token.get(index).CP.equals("for")
-                ||token.get(index).CP.equals("break")||token.get(index).CP.equals("continue")
-                ||token.get(index).CP.equals("return")||token.get(index).CP.equals("throw")){
+        else if (token.get(index).CP.equals("Co")||token.get(index).CP.equals("Identifier")
+        ||token.get(index).CP.equals("Assign Operator")||token.get(index).CP.equals("Semi Colon")
+                ||token.get(index).CP.equals("Close Parentheses")||token.get(index).CP.equals("IncDec")){
             return true;
         }
         return false;
@@ -1575,6 +1631,7 @@ boolean MST(){
     }
     boolean E1(){
         if (token.get(index).CP.equals("PM")){
+            opr=token.get(index).VP;
             index++;
             if (T()){
                 if (E1()){
@@ -1608,6 +1665,7 @@ boolean MST(){
     }
     boolean T1(){
         if (token.get(index).CP.equals("MDM")){
+            opr=token.get(index).VP;
             index++;
             if (F()){
                 if (T1()){
@@ -1635,6 +1693,7 @@ boolean MST(){
                 ||token.get(index).CP.equals("IncDec")||token.get(index).CP.equals("Not")){
             if (Th()){
                 if (token.get(index).CP.equals("Identifier")){
+
                     index++;
                     if (F1()){
                         return true;
@@ -1644,6 +1703,12 @@ boolean MST(){
             else if (token.get(index).CP.equals("Text")
                     ||token.get(index).CP.equals("Float") ||token.get(index).CP.equals("Letter")
                     ||token.get(index).CP.equals("Whole Number")||token.get(index).CP.equals("Boolean")){
+                if(token.get(index).CP.equals("Whole Number")) T2="wn";
+                if(token.get(index).CP.equals("Text"))T2="text";
+                if (token.get(index).CP.equals("Float"))T2="float";
+                if(token.get(index).CP.equals("Letter"))T2="letter";
+                if(token.get(index).CP.equals("Boolean"))T2="boolean";
+
                 index++;
                 return true;
             }

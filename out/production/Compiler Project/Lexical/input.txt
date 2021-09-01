@@ -1,9 +1,11 @@
-interface B{
-wn b;
-}
-class V{
 
-}
-class A implement B,B{
-wn a=10;
+class V{
+    wn a ;
+    pub static void main(){
+    wn a=10/5;
+    wn b=14;
+    wn x=3;
+    wn m=a+b/x;
+
+    }
 }

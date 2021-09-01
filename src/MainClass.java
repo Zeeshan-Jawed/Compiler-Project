@@ -1,6 +1,8 @@
 import Lexical.LexerClass;
 import Lexical.Token;
 import SyntaxAnalyzer.SyntaxClass;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
