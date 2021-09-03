@@ -1,11 +1,14 @@
 
-class V{
-    wn a ;
-    pub static void main(){
-    wn a=10/5;
-    wn b=14;
-    wn x=3;
-    wn m=a+b/x;
-
+class S{
+    pub text s(){
+        return "hhh";
     }
+
 }
+
+class A inherit S{
+       pub text s(){
+               return "mmm";
+           }
+}
+

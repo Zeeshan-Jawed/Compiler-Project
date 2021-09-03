@@ -7,7 +7,9 @@ import java.util.Stack;
 public class SemanticClass {
     public  String Cat;
     public  String Am="pvt";
+
     public  String Tm;
+    public ArrayList<BodyTable> lk;
 
     static int index=0;
     Stack <Integer> scope=new Stack<>();
@@ -77,6 +79,7 @@ public class SemanticClass {
             if (var.name.equals(name)){
                 Am=var.access_modifier;
                 Cat=var.category;
+                lk= var.link;
                 return var.type;
 
             }
@@ -91,7 +94,7 @@ public class SemanticClass {
         }
         return "null";
     }
-    String lookup_fn_DT(String name,ArrayList<BodyTable>link){
+    public String lookup_fn_DT(String name,ArrayList<BodyTable>link){
         for (BodyTable var :link){
             if (var.name.equals(name)){
                 return var.type;

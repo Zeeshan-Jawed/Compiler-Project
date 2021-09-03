@@ -21,11 +21,14 @@ public class SyntaxClass   {
     String Ftype;
 
     String opr;
-    String T1;
-    String T3;
-    String T2;
-    String T4;
-    String T5;
+    String T1="null";
+    String T3="null";
+    String T2="null";
+    String T4="null";
+    String T5="null";
+
+
+    ArrayList<BodyTable>  rtf;
 
     static int index=0;
     private final List<Token> token;
@@ -692,7 +695,16 @@ public class SyntaxClass   {
             }
             else if (token.get(index).CP.equals("Identifier")){
                 String N=token.get(index).VP;
-               T1= semanticClass.lookup_FT(N);
+                if (token.get(index+1).CP.equals("Identifier")){
+                    if (semanticClass.lookup_MT(N).equals("class")){
+                        Ftype=N;
+                        T1=N;
+                    }
+                    else if (semanticClass.lookup_MT(N).equals("interface")){
+                        System.out.println("Interface instance not allow! ");
+                    }
+                }
+              else T1= semanticClass.lookup_FT(N);
 
                if (T1.equals("null")){
                    System.out.println("'"+N +"' Undeclared");
@@ -711,6 +723,8 @@ boolean other() {
             || token.get(index).CP.equals("Open Square") || token.get(index).CP.equals("Open Parentheses")
             || token.get(index).CP.equals("IncDec") || token.get(index).CP.equals("Assign Operator")) {
         if (token.get(index).CP.equals("Identifier")) {
+            Fname=token.get(index).VP;
+            semanticClass.insert_FT(Fname,Ftype);
             index++;
             if (token.get(index).CP.equals("Assign Operator")) {
                 index++;
@@ -1435,8 +1449,18 @@ boolean MST(){
     }
     boolean Y(){
         if (token.get(index).CP.equals("dot")){
+            String type=semanticClass.lookup_MT(T1);
+            if (!type.equals("null")){
+                rtf=semanticClass.lk;
+            }
             index++;
+
             if ((token.get(index).CP.equals("Identifier"))){
+                String a=token.get(index).VP;
+               String tt= semanticClass.lookup_fn_DT(a,rtf);
+               if (tt!=null){
+                   System.out.println("'"+a+"' Not Found");
+               }
                 index++;
                 if (Y()){
                     return true;
@@ -1693,7 +1717,6 @@ boolean MST(){
                 ||token.get(index).CP.equals("IncDec")||token.get(index).CP.equals("Not")){
             if (Th()){
                 if (token.get(index).CP.equals("Identifier")){
-
                     index++;
                     if (F1()){
                         return true;

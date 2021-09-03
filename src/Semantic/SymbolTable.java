@@ -14,14 +14,14 @@ public class SymbolTable {
 
     @Override
     public String toString() {
-        return "SymbolTable{" +
+        return "\n SymbolTable{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", access_modifier='" + access_modifier + '\'' +
                 ", category='" + category + '\'' +
                 ", parent='" + parent + '\'' +
                 ", link=" + link +
-                '}';
+                "}\n";
     }
 
     @Override

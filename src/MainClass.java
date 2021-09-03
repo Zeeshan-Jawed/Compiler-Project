@@ -3,6 +3,7 @@ import Lexical.Token;
 import SyntaxAnalyzer.SyntaxClass;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -26,6 +27,18 @@ public class MainClass {
             Token t= new Token("$"," ",-1);
             tokenList.add(t);
             System.out.println("Token File Generated");
+//            JPanel panel = new JPanel(new BorderLayout());
+//            final JList list = new JList(tokenList.toArray());
+//            JScrollPane scrollPane = new JScrollPane();
+//            scrollPane.setViewportView(list);
+//            list.setLayoutOrientation(JList.VERTICAL);
+//            panel.add(scrollPane);
+//            JFrame frame = new JFrame("Tokens");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.add(panel);
+//            frame.setSize(600, 450);
+//            frame.setLocationRelativeTo(null);
+//        frame.setVisible(true);
             SyntaxClass syntaxClass=new SyntaxClass(tokenList);
             syntaxClass.run();
             System.setOut(out);

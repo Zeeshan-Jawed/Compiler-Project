@@ -12,12 +12,12 @@ public class BodyTable {
 
     @Override
     public String toString() {
-        return "BodyTable{" +
+        return "\n BodyTable{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", access_modifier='" + access_modifier + '\'' +
                 ", type_modifier='" + type_modifier + '\'' +
-                '}';
+                "}\n";
     }
 
     @Override

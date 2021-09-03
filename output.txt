@@ -1,43 +1,32 @@
 Lexical Analyzer
 class           class	 	2
-Identifier      V	 	2
+Identifier      S	 	2
 Open Curly      {	 	2
-Data Format     wn	 	3
-Identifier      a	 	3
-Semi Colon      ;	 	3
-Access Modifier pub	 	4
-static          static	 	4
-void            void	 	4
-Identifier      main	 	4
-Open Parentheses(	 	4
-Close Parentheses)	 	4
-Open Curly      {	 	4
-Data Format     wn	 	5
-Identifier      a	 	5
-Assign Operator =	 	5
-Whole Number    10	 	5
-MDM             /	 	5
-Whole Number    5	 	5
-Semi Colon      ;	 	5
-Data Format     wn	 	6
-Identifier      b	 	6
-Assign Operator =	 	6
-Whole Number    14	 	6
-Semi Colon      ;	 	6
-Data Format     wn	 	7
-Identifier      x	 	7
-Assign Operator =	 	7
-Whole Number    3	 	7
-Semi Colon      ;	 	7
-Data Format     wn	 	8
-Identifier      m	 	8
-Assign Operator =	 	8
-Identifier      a	 	8
-PM              +	 	8
-Identifier      b	 	8
-MDM             /	 	8
-Identifier      x	 	8
-Semi Colon      ;	 	8
-Close Curly     }	 	10
-Close Curly     }	 	11
+Access Modifier pub	 	3
+Data Format     text	 	3
+Identifier      s	 	3
+Open Parentheses(	 	3
+Close Parentheses)	 	3
+Open Curly      {	 	3
+return          return	 	4
+Text            "hhh"	 	4
+Semi Colon      ;	 	4
+Close Curly     }	 	5
+Close Curly     }	 	7
+class           class	 	9
+Identifier      A	 	9
+inherit         inherit	 	9
+Identifier      S	 	9
+Open Curly      {	 	9
+Access Modifier pub	 	10
+Data Format     text	 	10
+Identifier      s	 	10
+Open Parentheses(	 	10
+Close Parentheses)	 	10
+Open Curly      {	 	10
+return          return	 	11
+Text            "hhh"	 	11
+Semi Colon      ;	 	11
+Close Curly     }	 	12
+Close Curly     }	 	13
 $                	 	-1
